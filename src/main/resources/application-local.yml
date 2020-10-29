@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /forum
+
+spring:
+  application:
+    name: forum_api
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:h2:mem:forumdb;init=create schema if not exists forumdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        default_schema: forumdb
+  h2:
+    console:
+      enabled: true
