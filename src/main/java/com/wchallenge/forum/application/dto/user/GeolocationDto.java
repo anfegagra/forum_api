@@ -1,0 +1,14 @@
+package com.wchallenge.forum.application.dto.user;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class GeolocationDto {
+
+	private String lat;
+	private String lng;
+}
