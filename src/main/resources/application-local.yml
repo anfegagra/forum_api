@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: forum_api
+    name: forum-api
   profiles:
     active: local
   datasource:
@@ -21,3 +21,10 @@ spring:
   h2:
     console:
       enabled: true
+
+feign:
+  jsonplaceholder:
+    name: JSON-PLACEHOLDER
+    url: https://jsonplaceholder.typicode.com/
+    resource:
+      users: users
