@@ -7,41 +7,41 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.wchallenge.forum.application.dto.user.UserDto;
-import com.wchallenge.forum.application.service.UserAppService;
+import com.wchallenge.forum.application.dto.album.PhotoDto;
+import com.wchallenge.forum.application.service.AlbumAppService;
 import java.util.Collections;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-class UserControllerTest {
+class AlbumControllerTest {
 
-	private static UserAppService userAppService;
+	private static AlbumAppService albumAppService;
 
 	private static MockMvc mockMvc;
 
 	@BeforeAll
 	static void setUp() {
-		userAppService = mock(UserAppService.class);
-		UserController userController = new UserController(userAppService);
+		albumAppService = mock(AlbumAppService.class);
+		AlbumController albumController = new AlbumController(albumAppService);
 
-		mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(albumController).build();
 	}
 
 	@Test
 	void findAll() throws Exception {
 
 		// Arrange
-		UserDto userDto = UserDto.builder().id(1).username("pipe").build();
+		PhotoDto photoDto = PhotoDto.builder().id(1).title("test").build();
 
-		when(userAppService.findAll()).thenReturn(Collections.singletonList(userDto));
+		when(albumAppService.findAllPhotos()).thenReturn(Collections.singletonList(photoDto));
 
 		// Act - Assert
-		mockMvc.perform(get("/api/v1/users"))
+		mockMvc.perform(get("/api/v1/albums/photos"))
 			.andDo(print()).andExpect(status().isOk())
-			.andExpect(jsonPath("data[0].id").value(userDto.getId()))
-			.andExpect(jsonPath("data[0].username").value(userDto.getUsername()));
+			.andExpect(jsonPath("data[0].id").value(photoDto.getId()))
+			.andExpect(jsonPath("data[0].title").value(photoDto.getTitle()));
 	}
 
 }
