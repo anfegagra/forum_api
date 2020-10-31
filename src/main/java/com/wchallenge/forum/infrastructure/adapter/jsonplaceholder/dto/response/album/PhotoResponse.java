@@ -1,4 +1,4 @@
-package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album;
+package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

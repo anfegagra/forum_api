@@ -1,8 +1,9 @@
 package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate;
 
-import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.AlbumResponse;
-import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.PhotoResponse;
-import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.user.UserResponse;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.UserIdParam;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.AlbumResponse;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.PhotoResponse;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.user.UserResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.feign.JsonPlaceholderFeignClient;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -38,5 +39,14 @@ public class JsonPlaceholderDelegate {
 		log.info("Connecting to JSONPlaceholder resource to get info about albums...");
 
 		return jsonPlaceholderFeignClient.findAllAlbums();
+	}
+
+	public List<AlbumResponse> findAlbumsByUserId(int userId) {
+
+		log.info(
+			"Connecting to JSONPlaceholder resource to get info about albums for the user with id {}",
+			userId);
+
+		return jsonPlaceholderFeignClient.findAlbumsByUserId(new UserIdParam(userId));
 	}
 }

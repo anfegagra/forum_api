@@ -1,11 +1,16 @@
 package com.wchallenge.forum.domain.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
+import com.wchallenge.forum.domain.exception.DataNotFoundException;
 import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.Photo;
 import com.wchallenge.forum.domain.port.AlbumPort;
+import com.wchallenge.forum.infrastructure.config.Messages;
+import com.wchallenge.forum.infrastructure.config.Messages.MessageName;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -54,6 +59,35 @@ class AlbumServiceTest {
 		// Assert
 		assertThat(albumsList).usingRecursiveFieldByFieldElementComparator()
 			.isEqualTo(Collections.singletonList(album));
+	}
+
+	@Test
+	void findAlbumsByUserId() {
+
+		// Arrange
+		int userId = 1;
+		Album album = Album.builder().userId(userId).id(1).title("test").build();
+		when(albumPort.findAlbumsByUserId(anyInt())).thenReturn(Collections.singletonList(album));
+
+		// Act
+		List<Album> albums = albumService.findAlbumsByUserId(userId);
+
+		// Assert
+		assertThat(albums).usingRecursiveFieldByFieldElementComparator()
+			.isEqualTo(Collections.singletonList(album));
+	}
+
+	@Test
+	void findAlbumsByUserIdWithEmptyAlbumList() {
+
+		// Arrange
+		int userId = 1;
+		when(albumPort.findAlbumsByUserId(anyInt())).thenReturn(Collections.emptyList());
+
+		// Act - Assert
+		assertThatThrownBy(() -> albumService.findAlbumsByUserId(userId))
+			.isInstanceOf(DataNotFoundException.class)
+			.hasMessage(Messages.getMessage(MessageName.DATA_NOT_FOUND));
 	}
 
 }

@@ -2,8 +2,8 @@ package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.mapper;
 
 import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.Photo;
-import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.AlbumResponse;
-import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.PhotoResponse;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.AlbumResponse;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.PhotoResponse;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

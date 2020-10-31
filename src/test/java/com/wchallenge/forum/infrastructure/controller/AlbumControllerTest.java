@@ -1,5 +1,6 @@
 package com.wchallenge.forum.infrastructure.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -51,10 +52,26 @@ class AlbumControllerTest {
 		// Arrange
 		AlbumDto albumDto = AlbumDto.builder().userId(1).id(1).title("test").build();
 
-		when(albumAppService.findAll()).thenReturn(Collections.singletonList(albumDto));
+		when(albumAppService.findAll(any())).thenReturn(Collections.singletonList(albumDto));
 
 		// Act - Assert
 		mockMvc.perform(get("/api/v1/albums"))
+			.andDo(print()).andExpect(status().isOk())
+			.andExpect(jsonPath("data[0].userId").value(albumDto.getUserId()))
+			.andExpect(jsonPath("data[0].id").value(albumDto.getId()))
+			.andExpect(jsonPath("data[0].title").value(albumDto.getTitle()));
+	}
+
+	@Test
+	void findAlbumsByUserId() throws Exception {
+
+		// Arrange
+		AlbumDto albumDto = AlbumDto.builder().userId(1).id(1).title("test").build();
+
+		when(albumAppService.findAll(any())).thenReturn(Collections.singletonList(albumDto));
+
+		// Act - Assert
+		mockMvc.perform(get("/api/v1/albums").param("userId", "1"))
 			.andDo(print()).andExpect(status().isOk())
 			.andExpect(jsonPath("data[0].userId").value(albumDto.getUserId()))
 			.andExpect(jsonPath("data[0].id").value(albumDto.getId()))

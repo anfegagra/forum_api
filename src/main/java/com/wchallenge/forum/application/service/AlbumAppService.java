@@ -27,7 +27,16 @@ public class AlbumAppService {
 		return albumAppMapper.domainPhotosListToDtoPhotosList(albumService.findAllPhotos());
 	}
 
-	public List<AlbumDto> findAll() {
+	public List<AlbumDto> findAll(Integer userId) {
+
+		if (userId != null) {
+
+			log.info("Starting to search albums from external resources for user with id {}",
+				userId);
+
+			return albumAppMapper
+				.domainAlbumListToDtoAlbumList(albumService.findAlbumsByUserId(userId));
+		}
 
 		log.info("Starting to search albums from external resources...");
 
