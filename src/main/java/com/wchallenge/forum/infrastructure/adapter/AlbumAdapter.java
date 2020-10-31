@@ -1,5 +1,6 @@
 package com.wchallenge.forum.infrastructure.adapter;
 
+import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.Photo;
 import com.wchallenge.forum.domain.port.AlbumPort;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate.JsonPlaceholderDelegate;
@@ -25,6 +26,12 @@ public class AlbumAdapter implements AlbumPort {
 
 		return albumJsonPlaceholderMapper
 			.responsePhotosListToDomainPhotosList(jsonPlaceholderDelegate.findAllPhotos());
+	}
+
+	@Override
+	public List<Album> findAll() {
+		return albumJsonPlaceholderMapper
+			.responseAlbumsListToDomainAlbumsList(jsonPlaceholderDelegate.findAllAlbums());
 	}
 
 }

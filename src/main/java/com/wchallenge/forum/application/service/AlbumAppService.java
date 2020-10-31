@@ -1,5 +1,6 @@
 package com.wchallenge.forum.application.service;
 
+import com.wchallenge.forum.application.dto.album.AlbumDto;
 import com.wchallenge.forum.application.dto.album.PhotoDto;
 import com.wchallenge.forum.application.mapper.AlbumAppMapper;
 import com.wchallenge.forum.domain.service.AlbumService;
@@ -19,5 +20,9 @@ public class AlbumAppService {
 
 	public List<PhotoDto> findAllPhotos() {
 		return albumAppMapper.domainPhotosListToDtoPhotosList(albumService.findAllPhotos());
+	}
+
+	public List<AlbumDto> findAll() {
+		return albumAppMapper.domainAlbumListToDtoAlbumList(albumService.findAll());
 	}
 }

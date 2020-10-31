@@ -1,5 +1,6 @@
 package com.wchallenge.forum.infrastructure.controller;
 
+import com.wchallenge.forum.application.dto.album.AlbumDto;
 import com.wchallenge.forum.application.dto.album.PhotoDto;
 import com.wchallenge.forum.application.service.AlbumAppService;
 import com.wchallenge.forum.infrastructure.controller.dto.ApiResponseForumDto;
@@ -22,6 +23,12 @@ public class AlbumController {
 	public ApiResponseForumDto<List<PhotoDto>> findAllPhotos() {
 
 		return new ApiResponseForumDto<>(albumAppService.findAllPhotos(), null);
+	}
+
+	@GetMapping
+	public ApiResponseForumDto<List<AlbumDto>> findAll() {
+
+		return new ApiResponseForumDto<>(albumAppService.findAll(), null);
 	}
 
 }

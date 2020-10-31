@@ -1,5 +1,6 @@
 package com.wchallenge.forum.domain.port;
 
+import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.Photo;
 import java.util.List;
 
@@ -11,4 +12,11 @@ public interface AlbumPort {
 	 * @return The list of photos with their details
 	 */
 	List<Photo> findAllPhotos();
+
+	/**
+	 * Method that obtains a list of albums registered in JSONPlaceholder
+	 *
+	 * @return The list of albums with their details
+	 */
+	List<Album> findAll();
 }

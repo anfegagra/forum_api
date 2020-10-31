@@ -3,6 +3,7 @@ package com.wchallenge.forum.domain.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.Photo;
 import com.wchallenge.forum.domain.port.AlbumPort;
 import java.util.Collections;
@@ -23,7 +24,7 @@ class AlbumServiceTest {
 	private AlbumService albumService;
 
 	@Test
-	void findAll() {
+	void findAllPhotos() {
 
 		// Arrange
 		Photo photo = Photo.builder().albumId(1).id(1).title("test").url("url")
@@ -37,6 +38,22 @@ class AlbumServiceTest {
 		// Assert
 		assertThat(photoList).usingRecursiveFieldByFieldElementComparator()
 			.isEqualTo(Collections.singletonList(photo));
+	}
+
+	@Test
+	void findAll() {
+
+		// Arrange
+		Album album = Album.builder().userId(1).id(1).title("test").build();
+
+		when(albumPort.findAll()).thenReturn(Collections.singletonList(album));
+
+		// Act
+		List<Album> albumsList = albumService.findAll();
+
+		// Assert
+		assertThat(albumsList).usingRecursiveFieldByFieldElementComparator()
+			.isEqualTo(Collections.singletonList(album));
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.feign;
 
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.AlbumResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.PhotoResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.user.UserResponse;
 import java.util.List;
@@ -14,5 +15,8 @@ public interface JsonPlaceholderFeignClient {
 
 	@GetMapping(value = "${feign.jsonplaceholder.resource.photos}")
 	List<PhotoResponse> findAllPhotos();
+
+	@GetMapping(value = "${feign.jsonplaceholder.resource.albums}")
+	List<AlbumResponse> findAllAlbums();
 
 }

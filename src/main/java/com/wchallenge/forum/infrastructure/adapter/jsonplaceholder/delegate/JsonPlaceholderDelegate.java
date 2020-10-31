@@ -1,5 +1,6 @@
 package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate;
 
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.AlbumResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.album.PhotoResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.user.UserResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.feign.JsonPlaceholderFeignClient;
@@ -22,5 +23,9 @@ public class JsonPlaceholderDelegate {
 
 	public List<PhotoResponse> findAllPhotos() {
 		return jsonPlaceholderFeignClient.findAllPhotos();
+	}
+
+	public List<AlbumResponse> findAllAlbums() {
+		return jsonPlaceholderFeignClient.findAllAlbums();
 	}
 }
