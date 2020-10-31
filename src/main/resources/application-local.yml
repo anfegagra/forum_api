@@ -28,3 +28,4 @@ feign:
     url: https://jsonplaceholder.typicode.com/
     resource:
       users: users
+      photos: photos
