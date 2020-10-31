@@ -5,8 +5,10 @@ import com.wchallenge.forum.domain.port.UserPort;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate.JsonPlaceholderDelegate;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.mapper.UserJsonPlaceholderMapper;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class UserAdapter implements UserPort {
 
@@ -23,7 +25,11 @@ public class UserAdapter implements UserPort {
 	@Override
 	public List<User> findAll() {
 
-		return userJsonPlaceholderMapper
+		List<User> users = userJsonPlaceholderMapper
 			.responseListToDomainList(jsonPlaceholderDelegate.findUsers());
+
+		log.info("Obtained successful response from JSONPlaceholder resource with users info");
+
+		return users;
 	}
 }

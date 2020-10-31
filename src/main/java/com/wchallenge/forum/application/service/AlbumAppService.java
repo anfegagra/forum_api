@@ -5,8 +5,10 @@ import com.wchallenge.forum.application.dto.album.PhotoDto;
 import com.wchallenge.forum.application.mapper.AlbumAppMapper;
 import com.wchallenge.forum.domain.service.AlbumService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class AlbumAppService {
 
@@ -19,10 +21,16 @@ public class AlbumAppService {
 	}
 
 	public List<PhotoDto> findAllPhotos() {
+
+		log.info("Starting to search photos from external resources...");
+
 		return albumAppMapper.domainPhotosListToDtoPhotosList(albumService.findAllPhotos());
 	}
 
 	public List<AlbumDto> findAll() {
+
+		log.info("Starting to search albums from external resources...");
+
 		return albumAppMapper.domainAlbumListToDtoAlbumList(albumService.findAll());
 	}
 }

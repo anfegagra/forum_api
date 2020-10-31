@@ -6,8 +6,10 @@ import com.wchallenge.forum.domain.port.AlbumPort;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate.JsonPlaceholderDelegate;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.mapper.AlbumJsonPlaceholderMapper;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class AlbumAdapter implements AlbumPort {
 
@@ -24,14 +26,23 @@ public class AlbumAdapter implements AlbumPort {
 	@Override
 	public List<Photo> findAllPhotos() {
 
-		return albumJsonPlaceholderMapper
+		List<Photo> photos = albumJsonPlaceholderMapper
 			.responsePhotosListToDomainPhotosList(jsonPlaceholderDelegate.findAllPhotos());
+
+		log.info("Obtained successful response from JSONPlaceholder resource with photos info");
+
+		return photos;
 	}
 
 	@Override
 	public List<Album> findAll() {
-		return albumJsonPlaceholderMapper
+
+		List<Album> albums = albumJsonPlaceholderMapper
 			.responseAlbumsListToDomainAlbumsList(jsonPlaceholderDelegate.findAllAlbums());
+
+		log.info("Obtained successful response from JSONPlaceholder resource with albums info");
+
+		return albums;
 	}
 
 }

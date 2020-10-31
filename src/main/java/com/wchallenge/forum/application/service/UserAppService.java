@@ -4,8 +4,10 @@ import com.wchallenge.forum.application.dto.user.UserDto;
 import com.wchallenge.forum.application.mapper.UserAppMapper;
 import com.wchallenge.forum.domain.service.UserService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class UserAppService {
 
@@ -18,6 +20,8 @@ public class UserAppService {
 	}
 
 	public List<UserDto> findAll() {
+
+		log.info("Starting to search users from external resources...");
 
 		return userAppMapper.domainListToDtoList(userService.findAll());
 	}
