@@ -26,22 +26,38 @@ public class PostAdapter implements PostPort {
 	@Override
 	public List<Comment> findComments() {
 
-		return postJsonPlaceholderMapper
+		List<Comment> comments = postJsonPlaceholderMapper
 			.responseCommentsListToDomainCommentsList(jsonPlaceholderDelegate.findComments());
+
+		log.info("Obtained successful response from JSONPlaceholder resource with comments info");
+
+		return comments;
 	}
 
 	@Override
 	public List<Comment> findCommentsByName(String name) {
 
-		return postJsonPlaceholderMapper
+		List<Comment> comments = postJsonPlaceholderMapper
 			.responseCommentsListToDomainCommentsList(
 				jsonPlaceholderDelegate.findCommentsByName(name));
+
+		log.info(
+			"Obtained successful response from JSONPlaceholder resource with comments info filtered by name: {}",
+			name);
+
+		return comments;
 	}
 
 	@Override
 	public List<Post> findPostsByUserId(int userId) {
 
-		return postJsonPlaceholderMapper
+		List<Post> posts = postJsonPlaceholderMapper
 			.responsePostsListToDomainPostsList(jsonPlaceholderDelegate.findPostsByUserId(userId));
+
+		log.info(
+			"Obtained successful response from JSONPlaceholder resource with comments info filter by user id: {}",
+			userId);
+
+		return posts;
 	}
 }
