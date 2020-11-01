@@ -11,6 +11,7 @@ import com.wchallenge.forum.domain.model.album.Photo;
 import com.wchallenge.forum.domain.port.AlbumPort;
 import com.wchallenge.forum.infrastructure.config.Messages;
 import com.wchallenge.forum.infrastructure.config.Messages.MessageName;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -86,6 +87,45 @@ class AlbumServiceTest {
 
 		// Act - Assert
 		assertThatThrownBy(() -> albumService.findAlbumsByUserId(userId))
+			.isInstanceOf(DataNotFoundException.class)
+			.hasMessage(Messages.getMessage(MessageName.DATA_NOT_FOUND));
+	}
+
+	@Test
+	void findPhotosByUserId() {
+
+		// Arrange
+		int userId = 1;
+		Album album1 = Album.builder().userId(userId).id(1).title("test").build();
+		when(albumPort.findAlbumsByUserId(anyInt())).thenReturn(Collections.singletonList(album1));
+
+		Photo photo1 = Photo.builder().albumId(album1.getId()).id(1).title("photo1").build();
+		Photo photo2 = Photo.builder().albumId(album1.getId()).id(1).title("photo1").build();
+		Photo photo3 = Photo.builder().albumId(album1.getId()).id(1).title("photo1").build();
+		when(albumPort.findAllPhotos()).thenReturn(Arrays.asList(photo1, photo2, photo3));
+
+		// Act
+		List<Photo> photos = albumService.findPhotosByUserId(userId);
+
+		// Assert
+		assertThat(photos).hasSize(3);
+		assertThat(photos).usingRecursiveFieldByFieldElementComparator()
+			.isEqualTo(Arrays.asList(photo1, photo2, photo3));
+	}
+
+	@Test
+	void findPhotosByUserIdWithEmptyPhotosList() {
+
+		// Arrange
+		int userId = 1;
+		Album album1 = Album.builder().userId(userId).id(1).title("test").build();
+		when(albumPort.findAlbumsByUserId(anyInt())).thenReturn(Collections.singletonList(album1));
+
+		Photo photo = Photo.builder().albumId(2).id(1).title("photo1").build();
+		when(albumPort.findAllPhotos()).thenReturn(Collections.singletonList(photo));
+
+		// Act - Assert
+		assertThatThrownBy(() -> albumService.findPhotosByUserId(userId))
 			.isInstanceOf(DataNotFoundException.class)
 			.hasMessage(Messages.getMessage(MessageName.DATA_NOT_FOUND));
 	}

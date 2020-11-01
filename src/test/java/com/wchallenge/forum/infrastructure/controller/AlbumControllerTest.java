@@ -37,7 +37,7 @@ class AlbumControllerTest {
 		// Arrange
 		PhotoDto photoDto = PhotoDto.builder().id(1).title("test").build();
 
-		when(albumAppService.findAllPhotos()).thenReturn(Collections.singletonList(photoDto));
+		when(albumAppService.findAllPhotos(any())).thenReturn(Collections.singletonList(photoDto));
 
 		// Act - Assert
 		mockMvc.perform(get("/api/v1/albums/photos"))

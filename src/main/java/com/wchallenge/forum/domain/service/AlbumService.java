@@ -6,6 +6,7 @@ import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.Photo;
 import com.wchallenge.forum.domain.port.AlbumPort;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -35,5 +36,20 @@ public class AlbumService {
 		}
 
 		return albums;
+	}
+
+	public List<Photo> findPhotosByUserId(int userId) {
+
+		List<Album> albums = findAlbumsByUserId(userId);
+
+		List<Photo> photos = findAllPhotos().stream()
+			.filter(photo -> albums.stream().anyMatch(album -> album.getId() == photo.getAlbumId()))
+			.collect(Collectors.toList());
+
+		if (photos.isEmpty()) {
+			throw new DataNotFoundException(ForumNotificationCode.DATA_NOT_FOUND);
+		}
+
+		return photos;
 	}
 }

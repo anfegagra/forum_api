@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.wchallenge.forum.application.dto.album.AlbumDto;
+import com.wchallenge.forum.application.dto.album.PhotoDto;
 import com.wchallenge.forum.application.mapper.AlbumAppMapper;
 import com.wchallenge.forum.domain.service.AlbumService;
 import java.util.List;
@@ -49,6 +50,31 @@ class AlbumAppServiceTest {
 		// Assert
 		verify(albumService, times(0)).findAlbumsByUserId(anyInt());
 		verify(albumService, times(1)).findAll();
+	}
+
+	@Test
+	void findAllPhotos() {
+
+		// Act
+		List<PhotoDto> photoList = albumAppService.findAllPhotos(null);
+
+		// Assert
+		verify(albumService, times(0)).findPhotosByUserId(anyInt());
+		verify(albumService, times(1)).findAllPhotos();
+	}
+
+	@Test
+	void findPhotosByUserId() {
+
+		// Arrange
+		Integer userId = 1;
+
+		// Act
+		List<PhotoDto> photoList = albumAppService.findAllPhotos(userId);
+
+		// Assert
+		verify(albumService, times(1)).findPhotosByUserId(userId);
+		verify(albumService, times(0)).findAllPhotos();
 	}
 
 }

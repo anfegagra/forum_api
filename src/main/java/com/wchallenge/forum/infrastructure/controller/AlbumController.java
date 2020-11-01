@@ -21,9 +21,10 @@ public class AlbumController {
 	}
 
 	@GetMapping("/photos")
-	public ApiResponseForumDto<List<PhotoDto>> findAllPhotos() {
+	public ApiResponseForumDto<List<PhotoDto>> findAllPhotos(
+		@RequestParam(value = "userId", required = false) Integer userId) {
 
-		return new ApiResponseForumDto<>(albumAppService.findAllPhotos(), null);
+		return new ApiResponseForumDto<>(albumAppService.findAllPhotos(userId), null);
 	}
 
 	@GetMapping
