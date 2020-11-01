@@ -8,7 +8,6 @@ import com.wchallenge.forum.domain.port.AlbumPort;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 @Service
 public class AlbumService {
@@ -31,7 +30,7 @@ public class AlbumService {
 
 		List<Album> albums = albumPort.findAlbumsByUserId(userId);
 
-		if (CollectionUtils.isEmpty(albums)) {
+		if (albums.isEmpty()) {
 			throw new DataNotFoundException(ForumNotificationCode.DATA_NOT_FOUND);
 		}
 

@@ -30,3 +30,5 @@ feign:
       users: users
       photos: photos
       albums: albums
+      comments: comments
+      posts: posts

@@ -1,8 +1,11 @@
 package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate;
 
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.CommentNameParam;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.UserIdParam;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.AlbumResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.PhotoResponse;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.post.CommentResponse;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.post.PostResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.user.UserResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.feign.JsonPlaceholderFeignClient;
 import java.util.List;
@@ -48,5 +51,30 @@ public class JsonPlaceholderDelegate {
 			userId);
 
 		return jsonPlaceholderFeignClient.findAlbumsByUserId(new UserIdParam(userId));
+	}
+
+	public List<CommentResponse> findComments() {
+
+		log.info("Connecting to JSONPlaceholder resource to get info about comments...");
+
+		return jsonPlaceholderFeignClient.findComments();
+	}
+
+	public List<CommentResponse> findCommentsByName(String name) {
+
+		log.info(
+			"Connecting to JSONPlaceholder resource to get info about comments having the name: {}",
+			name);
+
+		return jsonPlaceholderFeignClient.findCommentsByName(new CommentNameParam(name));
+	}
+
+	public List<PostResponse> findPostsByUserId(int userId) {
+
+		log.info(
+			"Connecting to JSONPlaceholder resource to get info about posts for the user with id {}",
+			userId);
+
+		return jsonPlaceholderFeignClient.findPostsByUserId(new UserIdParam(userId));
 	}
 }
