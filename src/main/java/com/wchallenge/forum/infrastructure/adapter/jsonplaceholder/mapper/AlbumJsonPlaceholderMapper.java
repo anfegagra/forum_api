@@ -14,4 +14,6 @@ public interface AlbumJsonPlaceholderMapper {
 	List<Photo> responsePhotosListToDomainPhotosList(List<PhotoResponse> photoResponseList);
 
 	List<Album> responseAlbumsListToDomainAlbumsList(List<AlbumResponse> albumResponseList);
+
+	Album responseAlbumToDomainAlbum(AlbumResponse albumResponse);
 }

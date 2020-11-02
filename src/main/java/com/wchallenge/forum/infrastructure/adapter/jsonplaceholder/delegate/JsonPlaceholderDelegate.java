@@ -1,7 +1,7 @@
 package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate;
 
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.CommentNameParam;
-import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.UserIdParam;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.IdParam;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.AlbumResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.PhotoResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.post.CommentResponse;
@@ -30,6 +30,15 @@ public class JsonPlaceholderDelegate {
 		return jsonPlaceholderFeignClient.findUsers();
 	}
 
+	public UserResponse findUserById(int userId) {
+
+		log.info("Connecting to JSONPlaceholder resource to get info about the user with id {}",
+			userId);
+
+		return jsonPlaceholderFeignClient.findUserById(new IdParam(userId)).stream().findFirst()
+			.orElse(null);
+	}
+
 	public List<PhotoResponse> findAllPhotos() {
 
 		log.info("Connecting to JSONPlaceholder resource to get info about photos...");
@@ -44,13 +53,22 @@ public class JsonPlaceholderDelegate {
 		return jsonPlaceholderFeignClient.findAllAlbums();
 	}
 
+	public AlbumResponse findAlbumById(int albumId) {
+
+		log.info("Connecting to JSONPlaceholder resource to get info about album with id {}",
+			albumId);
+
+		return jsonPlaceholderFeignClient.findAlbumById(new IdParam(albumId)).stream().findFirst()
+			.orElse(null);
+	}
+
 	public List<AlbumResponse> findAlbumsByUserId(int userId) {
 
 		log.info(
 			"Connecting to JSONPlaceholder resource to get info about albums for the user with id {}",
 			userId);
 
-		return jsonPlaceholderFeignClient.findAlbumsByUserId(new UserIdParam(userId));
+		return jsonPlaceholderFeignClient.findAlbumsByUserId(new IdParam(userId));
 	}
 
 	public List<CommentResponse> findComments() {
@@ -75,6 +93,6 @@ public class JsonPlaceholderDelegate {
 			"Connecting to JSONPlaceholder resource to get info about posts for the user with id {}",
 			userId);
 
-		return jsonPlaceholderFeignClient.findPostsByUserId(new UserIdParam(userId));
+		return jsonPlaceholderFeignClient.findPostsByUserId(new IdParam(userId));
 	}
 }

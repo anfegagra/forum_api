@@ -32,4 +32,17 @@ public class UserAdapter implements UserPort {
 
 		return users;
 	}
+
+	@Override
+	public User findById(int userId) {
+
+		User user = userJsonPlaceholderMapper
+			.responseToDomain(jsonPlaceholderDelegate.findUserById(userId));
+
+		log.info(
+			"Obtained successful response from JSONPlaceholder resource with the user with id {}",
+			userId);
+
+		return user;
+	}
 }

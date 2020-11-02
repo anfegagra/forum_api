@@ -26,6 +26,17 @@ public class AlbumService {
 		return albumPort.findAll();
 	}
 
+	public Album findById(int albumId) {
+
+		Album album = albumPort.findById(albumId);
+
+		if (album == null) {
+			throw new DataNotFoundException(ForumNotificationCode.DATA_NOT_FOUND);
+		}
+
+		return album;
+	}
+
 	public List<Album> findAlbumsByUserId(int userId) {
 
 		List<Album> albums = albumPort.findAlbumsByUserId(userId);

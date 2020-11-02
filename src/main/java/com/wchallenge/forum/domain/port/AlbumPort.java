@@ -27,4 +27,12 @@ public interface AlbumPort {
 	 * @return The list of albums that belongs to the given user id.
 	 */
 	List<Album> findAlbumsByUserId(int userId);
+
+	/**
+	 * Method that obtains an album by id.
+	 *
+	 * @param albumId Id of the album to be used in the search.
+	 * @return Album with its details.
+	 */
+	Album findById(int albumId);
 }

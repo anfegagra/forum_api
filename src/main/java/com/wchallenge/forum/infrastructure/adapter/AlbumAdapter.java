@@ -59,4 +59,17 @@ public class AlbumAdapter implements AlbumPort {
 		return albums;
 	}
 
+	@Override
+	public Album findById(int albumId) {
+
+		Album album = albumJsonPlaceholderMapper
+			.responseAlbumToDomainAlbum(jsonPlaceholderDelegate.findAlbumById(albumId));
+
+		log.info(
+			"Obtained successful response from JSONPlaceholder resource with the album with id {}",
+			albumId);
+
+		return album;
+	}
+
 }

@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserIdParam {
+public class IdParam {
 
-	private int userId;
-
+	private int id;
 }

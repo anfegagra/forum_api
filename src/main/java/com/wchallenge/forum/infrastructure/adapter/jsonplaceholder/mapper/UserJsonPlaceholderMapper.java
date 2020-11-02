@@ -10,4 +10,6 @@ import org.mapstruct.ReportingPolicy;
 public interface UserJsonPlaceholderMapper {
 
 	List<User> responseListToDomainList(List<UserResponse> userResponseList);
+
+	User responseToDomain(UserResponse userResponse);
 }
