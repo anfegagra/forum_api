@@ -2,6 +2,7 @@ package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.delegate;
 
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.CommentNameParam;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.IdParam;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.UserIdParam;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.AlbumResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.PhotoResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.post.CommentResponse;
@@ -68,7 +69,7 @@ public class JsonPlaceholderDelegate {
 			"Connecting to JSONPlaceholder resource to get info about albums for the user with id {}",
 			userId);
 
-		return jsonPlaceholderFeignClient.findAlbumsByUserId(new IdParam(userId));
+		return jsonPlaceholderFeignClient.findAlbumsByUserId(new UserIdParam(userId));
 	}
 
 	public List<CommentResponse> findComments() {
@@ -93,6 +94,6 @@ public class JsonPlaceholderDelegate {
 			"Connecting to JSONPlaceholder resource to get info about posts for the user with id {}",
 			userId);
 
-		return jsonPlaceholderFeignClient.findPostsByUserId(new IdParam(userId));
+		return jsonPlaceholderFeignClient.findPostsByUserId(new UserIdParam(userId));
 	}
 }

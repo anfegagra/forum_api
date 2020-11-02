@@ -2,6 +2,7 @@ package com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.feign;
 
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.CommentNameParam;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.IdParam;
+import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.request.param.UserIdParam;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.AlbumResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.album.PhotoResponse;
 import com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.dto.response.post.CommentResponse;
@@ -31,7 +32,7 @@ public interface JsonPlaceholderFeignClient {
 	List<AlbumResponse> findAlbumById(@SpringQueryMap IdParam idParam);
 
 	@GetMapping(value = "${feign.jsonplaceholder.resource.albums}")
-	List<AlbumResponse> findAlbumsByUserId(@SpringQueryMap IdParam idParam);
+	List<AlbumResponse> findAlbumsByUserId(@SpringQueryMap UserIdParam userIdParam);
 
 	@GetMapping(value = "${feign.jsonplaceholder.resource.comments}")
 	List<CommentResponse> findComments();
@@ -40,6 +41,6 @@ public interface JsonPlaceholderFeignClient {
 	List<CommentResponse> findCommentsByName(@SpringQueryMap CommentNameParam commentNameParam);
 
 	@GetMapping(value = "${feign.jsonplaceholder.resource.posts}")
-	List<PostResponse> findPostsByUserId(@SpringQueryMap IdParam idParam);
+	List<PostResponse> findPostsByUserId(@SpringQueryMap UserIdParam userIdParam);
 
 }
