@@ -33,6 +33,7 @@ dependencies {
 
     // --- Database ---
     runtimeOnly 'com.h2database:h2'
+    implementation 'org.flywaydb:flyway-core:5.2.4'
 
     // --- Utilities ---
     compileOnly 'org.projectlombok:lombok'
