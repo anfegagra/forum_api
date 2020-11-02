@@ -3,12 +3,15 @@ package com.wchallenge.forum.domain.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.wchallenge.forum.domain.exception.DataNotFoundException;
 import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.Photo;
 import com.wchallenge.forum.domain.port.AlbumPort;
+import com.wchallenge.forum.domain.port.AlbumRepositoryPort;
 import com.wchallenge.forum.infrastructure.config.Messages;
 import com.wchallenge.forum.infrastructure.config.Messages.MessageName;
 import java.util.Arrays;
@@ -25,6 +28,9 @@ class AlbumServiceTest {
 
 	@Mock
 	private AlbumPort albumPort;
+
+	@Mock
+	private AlbumRepositoryPort albumRepositoryPort;
 
 	@InjectMocks
 	private AlbumService albumService;
@@ -76,6 +82,8 @@ class AlbumServiceTest {
 		// Assert
 		assertThat(albums).usingRecursiveFieldByFieldElementComparator()
 			.isEqualTo(Collections.singletonList(album));
+		assertThat(albums.size()).isEqualTo(1);
+		verify(albumRepositoryPort, times(1)).findByUserId(userId);
 	}
 
 	@Test
