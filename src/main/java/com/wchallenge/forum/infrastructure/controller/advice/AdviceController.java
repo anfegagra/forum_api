@@ -1,7 +1,11 @@
 package com.wchallenge.forum.infrastructure.controller.advice;
 
+import com.wchallenge.forum.domain.exception.BadCredentialsException;
 import com.wchallenge.forum.domain.exception.DataNotFoundException;
 import com.wchallenge.forum.domain.exception.ForumException;
+import com.wchallenge.forum.domain.exception.ForumNotificationCode;
+import com.wchallenge.forum.domain.exception.UsernameNotFoundException;
+import com.wchallenge.forum.infrastructure.config.Messages;
 import com.wchallenge.forum.infrastructure.controller.dto.ApiResponseForumDto;
 import com.wchallenge.forum.infrastructure.controller.dto.NotificationDto;
 import java.util.ArrayList;
@@ -10,6 +14,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpServerErrorException.InternalServerError;
@@ -22,6 +27,8 @@ public class AdviceController {
 
 	static {
 		ERROR_CATALOG.add(new ErrorDescriptor(DataNotFoundException.class,
+			HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString()));
+		ERROR_CATALOG.add(new ErrorDescriptor(UsernameNotFoundException.class,
 			HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString()));
 	}
 
@@ -43,9 +50,11 @@ public class AdviceController {
 	}
 
 	@ExceptionHandler({
-		DataNotFoundException.class
+		DataNotFoundException.class,
+		UsernameNotFoundException.class,
+		BadCredentialsException.class
 	})
-	public final ResponseEntity<ApiResponseForumDto<Object>> handleNotFoundExceptions(
+	public final ResponseEntity<ApiResponseForumDto<Object>> handleCustomExceptions(
 		ForumException exception) {
 
 		log.error(exception.getMessage(), exception);
@@ -54,6 +63,21 @@ public class AdviceController {
 			.body(ApiResponseForumDto.builder().data(null)
 				.notification(buildNotification(exception.getNotificationCode().getCode(),
 					exception.getMessage())).build());
+	}
+
+	@ExceptionHandler({
+		AccessDeniedException.class
+	})
+	public final ResponseEntity<ApiResponseForumDto<Object>> handleAccessDeniedException(
+		AccessDeniedException exception) {
+
+		log.error(exception.getMessage(), exception);
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN)
+			.body(ApiResponseForumDto.builder().data(null)
+				.notification(buildNotification(ForumNotificationCode.ACCESS_DENIED.getCode(),
+					Messages.getMessage(ForumNotificationCode.ACCESS_DENIED.getMessage())))
+				.build());
 	}
 
 	private ErrorDescriptor findDescriptorByException(Exception ex) {

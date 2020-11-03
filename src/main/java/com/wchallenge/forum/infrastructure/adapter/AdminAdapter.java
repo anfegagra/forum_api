@@ -15,6 +15,7 @@ import com.wchallenge.forum.infrastructure.adapter.repository.mapper.UserReposit
 import java.util.Collections;
 import java.util.HashSet;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -26,25 +27,28 @@ public class AdminAdapter implements AdminPort {
 	private final AlbumJpaRepository albumJpaRepository;
 	private final AlbumRepositoryMapper albumRepositoryMapper;
 	private final PermissionJpaRepository permissionJpaRepository;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public AdminAdapter(
 		UserJpaRepository userJpaRepository,
 		UserRepositoryMapper userRepositoryMapper,
 		AlbumJpaRepository albumJpaRepository,
 		AlbumRepositoryMapper albumRepositoryMapper,
-		PermissionJpaRepository permissionJpaRepository) {
+		PermissionJpaRepository permissionJpaRepository,
+		BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userJpaRepository = userJpaRepository;
 		this.userRepositoryMapper = userRepositoryMapper;
 		this.albumJpaRepository = albumJpaRepository;
 		this.albumRepositoryMapper = albumRepositoryMapper;
 		this.permissionJpaRepository = permissionJpaRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 	@Override
 	public boolean registerSharedAlbum(User user, Album album, PermissionType permission) {
 
 		UserEntity userEntity = userRepositoryMapper.domainToEntity(user);
-		userEntity.setPassword(user.getUsername());
+		userEntity.setPassword(bCryptPasswordEncoder.encode(user.getUsername()));
 		userEntity.setRole(RoleType.ROLE_USER);
 		userJpaRepository.save(userEntity);
 		log.info("The user with id {} was registered successfully", user.getId());

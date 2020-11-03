@@ -10,7 +10,10 @@ public final class Messages {
 
 	public enum MessageName {
 
-		DATA_NOT_FOUND
+		DATA_NOT_FOUND,
+		USERNAME_NOT_FOUND,
+		ACCESS_DENIED,
+		BAD_CREDENTIALS
 	}
 
 	private static final MessageSourceAccessor accessor;

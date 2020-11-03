@@ -9,4 +9,6 @@ import org.mapstruct.ReportingPolicy;
 public interface UserRepositoryMapper {
 
 	UserEntity domainToEntity(User user);
+
+	User entityToDomain(UserEntity userEntity);
 }
