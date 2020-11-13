@@ -30,6 +30,8 @@ public class AdviceController {
 			HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString()));
 		ERROR_CATALOG.add(new ErrorDescriptor(UsernameNotFoundException.class,
 			HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString()));
+		ERROR_CATALOG.add(new ErrorDescriptor(BadCredentialsException.class,
+			HttpStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED.toString()));
 	}
 
 	@ExceptionHandler({
