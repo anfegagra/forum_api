@@ -18,6 +18,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         default_schema: forumdb
+#        ddl-auto: create-drop
+    show-sql: true
   h2:
     console:
       enabled: true
@@ -34,3 +36,13 @@ feign:
       albums: albums
       comments: comments
       posts: posts
+  client:
+    config:
+      default:
+#        connectTimeout: 14000
+#        readTimeout: 14000
+        loggerLevel: full
+
+logging:
+  level:
+    com.wchallenge.forum.infrastructure.adapter.jsonplaceholder.feign.JsonPlaceholderFeignClient: DEBUG
