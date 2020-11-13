@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public class PermissionEntity {
 	@Enumerated(EnumType.STRING)
 	private PermissionType type;
 
-	@ManyToMany(mappedBy = "permissions")
-	private Set<AlbumEntity> albums;
+	@OneToMany(mappedBy = "permission")
+	private Set<SharedAlbumEntity> sharedAlbums;
 
 }
