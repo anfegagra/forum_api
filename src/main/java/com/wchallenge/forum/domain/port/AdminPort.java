@@ -3,6 +3,7 @@ package com.wchallenge.forum.domain.port;
 import com.wchallenge.forum.domain.model.album.Album;
 import com.wchallenge.forum.domain.model.album.PermissionType;
 import com.wchallenge.forum.domain.model.user.User;
+import java.util.List;
 
 public interface AdminPort {
 
@@ -15,4 +16,13 @@ public interface AdminPort {
 	 * @return Boolean that indicates if the shared album was registered successfully.
 	 */
 	boolean registerSharedAlbum(User user, Album album, PermissionType permission);
+
+	/**
+	 * Method that gets a list of users with a specified permission for a given album id
+	 *
+	 * @param permission Given permission to be used in the search.
+	 * @param albumId    Given album id to be used in the search.
+	 * @return a list of users that have the permission for the given album id.
+	 */
+	List<Long> findUsersByPermissionForAGivenAlbum(PermissionType permission, int albumId);
 }

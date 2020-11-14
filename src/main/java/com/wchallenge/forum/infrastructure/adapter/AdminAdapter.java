@@ -14,6 +14,7 @@ import com.wchallenge.forum.infrastructure.adapter.repository.jpa.SharedAlbumJpa
 import com.wchallenge.forum.infrastructure.adapter.repository.jpa.UserJpaRepository;
 import com.wchallenge.forum.infrastructure.adapter.repository.mapper.AlbumRepositoryMapper;
 import com.wchallenge.forum.infrastructure.adapter.repository.mapper.UserRepositoryMapper;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -79,5 +80,12 @@ public class AdminAdapter implements AdminPort {
 			.findByUserIdAndAlbumIdAndPermissionId(sharedAlbumEntity.getUserId(),
 				sharedAlbumEntity.getAlbum().getId(), sharedAlbumEntity.getPermission().getId())
 			!= null;
+	}
+
+	@Override
+	public List<Long> findUsersByPermissionForAGivenAlbum(PermissionType permission, int albumId) {
+
+		return sharedAlbumJpaRepository
+			.findByPermissionIdAndAlbumId(permission.getPermissionId(), albumId);
 	}
 }
