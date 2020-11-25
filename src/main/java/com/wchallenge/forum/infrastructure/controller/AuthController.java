@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-	private final AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager; // gestor de autenticación de spring
 	private final UserDetailsServiceAdapter userDetailsServiceAdapter;
 	private final JWTUtil jwtUtil;
 
@@ -37,7 +37,7 @@ public class AuthController {
 		@RequestBody AuthRequestDto request) {
 
 		try {
-			authenticationManager.authenticate(
+			authenticationManager.authenticate( // verificar si el usuario y contraseña son correctos
 				new UsernamePasswordAuthenticationToken(request.getUsername(),
 					request.getPassword()));
 

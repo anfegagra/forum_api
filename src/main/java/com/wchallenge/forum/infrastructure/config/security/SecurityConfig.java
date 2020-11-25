@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtFilterRequest jwtFilterRequest;
 
+	// configurar el manejador de autenticación para que no la configure por defecto y se usen las credenciales almacenadas en bd
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsServiceAdapter);
@@ -31,13 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
+		// deshabilitar peticiones cruzadas
 		http.csrf().disable().authorizeRequests()
 			.antMatchers("/**/authenticate").permitAll()
 			.antMatchers("/**/h2-console/**").permitAll()
 			.anyRequest().authenticated()
-			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // indicar que la sesión de nuestra aplicación será sin estado ya que los jwt son los que
+		// van a controlar cada petición
 
-		http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class); // utilizar el filtro y decirle qué tipo de filtro es
 
 		http.headers().frameOptions().disable();
 	}
@@ -45,6 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
+		return super.authenticationManagerBean(); // decirle a spring que siga controlando la gestión de autenticación
 	}
 }

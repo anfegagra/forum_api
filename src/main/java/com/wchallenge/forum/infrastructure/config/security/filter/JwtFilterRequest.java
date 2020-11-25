@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
-public class JwtFilterRequest extends OncePerRequestFilter {
+public class JwtFilterRequest extends OncePerRequestFilter { // se ejecuta cada que hay una petición
 
 	private final JWTUtil jwtUtil;
 	private final UserDetailsServiceAdapter userDetailsServiceAdapter;
@@ -40,17 +40,17 @@ public class JwtFilterRequest extends OncePerRequestFilter {
 			if (username != null
 				&& SecurityContextHolder.getContext().getAuthentication() == null) {
 
-				UserDetails userDetails = userDetailsServiceAdapter.loadUserByUsername(username);
+				UserDetails userDetails = userDetailsServiceAdapter.loadUserByUsername(username); // verificar si el usuario existe dentro del sistema de autenticación
 
 				if (jwtUtil.validateToken(jwt, userDetails)) {
 
-					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken( // levantar una sesión para ese usuario
 						userDetails, null, userDetails.getAuthorities());
 
 					authToken
-						.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+						.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); // añadir los detalles de la conexión para evaluar el navegador, horario, so, ...
 
-					SecurityContextHolder.getContext().setAuthentication(authToken);
+					SecurityContextHolder.getContext().setAuthentication(authToken); // para que quede en el contexto y no tenga que pasar siempre por las mismas validaciones
 				}
 			}
 		}

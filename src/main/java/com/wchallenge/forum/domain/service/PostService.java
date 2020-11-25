@@ -33,8 +33,7 @@ public class PostService {
 
 		List<Comment> comments = findComments().stream()
 			.filter(comment -> posts.stream().anyMatch(post -> post.getId() == comment.getPostId()))
-			.collect(
-				Collectors.toList());
+			.collect(Collectors.toList());
 
 		if (comments.isEmpty()) {
 			throw new DataNotFoundException(ForumNotificationCode.DATA_NOT_FOUND);
