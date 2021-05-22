@@ -5,6 +5,7 @@ import com.wchallenge.forum.application.service.AdminAppService;
 import com.wchallenge.forum.infrastructure.controller.dto.ApiResponseForumDto;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,5 +27,14 @@ public class AdminController {
 
 		return new ApiResponseForumDto<>(adminAppService.registerSharedAlbum(sharedAlbumRequestDto),
 			null);
+	}
+
+	@PutMapping("/albums/shared")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ApiResponseForumDto<Boolean> updateUserPermissionInASHaredAlbum(
+		@RequestBody SharedAlbumRequestDto sharedAlbumRequestDto) {
+
+		return new ApiResponseForumDto<>(
+			adminAppService.updateUserPermissionInASHaredAlbum(sharedAlbumRequestDto), null);
 	}
 }

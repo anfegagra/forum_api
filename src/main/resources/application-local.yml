@@ -18,9 +18,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         default_schema: forumdb
-  h2:
     console:
       enabled: true
+
+    show-sql=true:
   flyway:
     locations: classpath:db/migration
 
@@ -34,3 +35,5 @@ feign:
       albums: albums
       comments: comments
       posts: posts
+
+

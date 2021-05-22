@@ -13,7 +13,8 @@ public final class Messages {
 		DATA_NOT_FOUND,
 		USERNAME_NOT_FOUND,
 		ACCESS_DENIED,
-		BAD_CREDENTIALS
+		BAD_CREDENTIALS,
+		ALBUM_NOT_FOUND
 	}
 
 	private static final MessageSourceAccessor accessor;

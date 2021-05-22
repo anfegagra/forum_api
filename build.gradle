@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
+    id "nebula.lint" version "16.9.1"
 }
 
 group = 'com.wchallenge.forum'
@@ -37,7 +38,7 @@ dependencies {
 
     // --- Database ---
     runtimeOnly 'com.h2database:h2'
-    implementation 'org.flywaydb:flyway-core:5.2.4'
+    runtimeOnly 'org.flywaydb:flyway-core:5.2.4'
 
     // --- Utilities ---
     compileOnly 'org.projectlombok:lombok'
@@ -63,4 +64,9 @@ dependencyManagement {
 
 test {
     useJUnitPlatform()
+}
+
+gradleLint {
+    //Rules can be found in https://github.com/nebula-plugins/gradle-lint-plugin/tree/master/src/main/resources/META-INF/lint-rules
+    gradleLint.rules = ['unused-dependency']
 }

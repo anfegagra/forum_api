@@ -27,4 +27,9 @@ public class AdminService {
 
 		return adminPort.registerSharedAlbum(user, album, sharedAlbum.getPermission());
 	}
+
+	public boolean updateUserPermissionInASharedAlbum(SharedAlbum sharedAlbum) {
+
+		return adminPort.updateUserPermissionInASharedAlbum(sharedAlbum);
+	}
 }
